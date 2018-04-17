@@ -106,6 +106,15 @@ namespace com.educacionit.ms.mvc.pet {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Pet Age.
+        /// </summary>
+        public static string AgePet {
+            get {
+                return ResourceManager.GetString("AgePet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Must be between 10 and 130.
         /// </summary>
         public static string AgeRange {
@@ -156,6 +165,15 @@ namespace com.educacionit.ms.mvc.pet {
         public static string Create {
             get {
                 return ResourceManager.GetString("Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Description.
+        /// </summary>
+        public static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
             }
         }
         
@@ -255,6 +273,15 @@ namespace com.educacionit.ms.mvc.pet {
         public static string NameLong {
             get {
                 return ResourceManager.GetString("NameLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Pet Name.
+        /// </summary>
+        public static string NameP {
+            get {
+                return ResourceManager.GetString("NameP", resourceCulture);
             }
         }
         

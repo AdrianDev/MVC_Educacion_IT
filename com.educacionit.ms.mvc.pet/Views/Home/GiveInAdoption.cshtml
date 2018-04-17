@@ -1,53 +1,107 @@
 ﻿@model com.educacionit.ms.mvc.pet.Models.Pet
 
 @{
-    ViewBag.Title = "Registers a Pet";    
+    ViewBag.Title = "Registers a Pet";
+    var culture = System.Threading.Thread.CurrentThread.CurrentUICulture.Name.ToLowerInvariant();
 }
+
+@helper selected(string c, string culture)
+    {
+        if (c == culture)
+        {
+            @:checked="checked"
+        }
+}
+
 
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
+
 <section class="content jumbotron">
+
+    @using (Html.BeginForm("SetCulture_Pet", "Home"))
+    {
+        <fieldset>
+            <legend>
+                @Resources.ChooseYourLanguage
+            </legend>
+
+            <div class="control-group">
+                <div class="controls">
+                    <label for="en-us">
+                        <input name="culture" id="en-us" value="en-us" type="radio" @selected("en-us", culture) /> English
+                    </label>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="controls">
+                    <label for="es">
+                        <input name="culture" id="es" value="es" type="radio" @selected("es", culture) /> Español
+                    </label>
+                </div>
+            </div>
+
+        </fieldset>
+    }
+
+    <hr />
+
 
     @using (Html.BeginForm("GiveInAdoption", "Home", FormMethod.Post))
     {
 
         <div class="form-group">
-            @Html.LabelFor(m => m.Name, "Name")
-            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Pet´s Name" })
+            @Html.LabelFor(m => m.NameP)
+            @Html.TextBoxFor(m => m.NameP, new { @class = "form-control", placeholder = "Pet´s Name" })
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(m => m.Age, "Age")
-            @Html.TextBoxFor(m => m.Age, new { @type = "number", @class = "form-control", placeholder = "Pet´s Age" })
+            @Html.LabelFor(m => m.AgePet)
+            @Html.TextBoxFor(m => m.AgePet, new { @type = "number", @class = "form-control", placeholder = "Pet´s Age" })
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(m => m.Description, "Description")
+            @Html.LabelFor(m => m.Description)
             @Html.TextAreaFor(m => m.Description, new { @class = "form-control", placeholder = "Pet´s Descripion" })
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(m => m.Contact.Name, "Contact Full Name")
-            @Html.TextBoxFor(m => m.Contact.Name, new { @class = "form-control", placeholder = "Contact Name" })
+            @Html.LabelFor(m => m.Name)
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Contact Name" })
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(m => m.Contact.Email, "Contact Email")
-            @Html.TextBoxFor(m => m.Contact.Email, new { @type = "email", @class = "form-control", placeholder = "Contact Email" })
+            @Html.LabelFor(m => m.Email)
+            @Html.TextBoxFor(m => m.Email, new { @type = "email", @class = "form-control", placeholder = "Contact Email" })
+            @Html.ValidationMessageFor(m => m.Email)
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(m => m.Contact.Phone, "Contact Phone")
-            @Html.TextBoxFor(m => m.Contact.Phone, new { @class = "form-control", placeholder = "Contact Email" })
+            @Html.LabelFor(m => m.Contact.Phone)
+            @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", placeholder = "Contact Phone" })
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(m => m.Contact.Address, "Contact Address")
-            @Html.TextAreaFor(m => m.Contact.Address, new { @class = "form-control", placeholder = "Contact Address" })
+            @Html.LabelFor(m => m.Address)
+            @Html.TextAreaFor(m => m.Address, new { @class = "form-control", placeholder = "Contact Address" })
         </div>
 
-        <input type="submit" class="btn btn-primary" value="Enter" />@:&nbsp;&nbsp;<input type="reset" class="btn btn-info" value="Clean" />
+        <input type="submit" class="btn btn-primary" value="@Resources.Enter" />@:&nbsp;&nbsp;<input type="reset" class="btn btn-info" value="@Resources.Clean" />
     }
-
 </section>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        (function ($) {
+            $("input[type = 'radio']").click(function () {
+                $(this).parents("form").submit(); // post form
+            });
+
+        })(jQuery);
+    </script>
+}
