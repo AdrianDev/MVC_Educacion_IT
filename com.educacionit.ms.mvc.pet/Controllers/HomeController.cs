@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using com.educacionit.ms.mvc.pet.Helpers;
 using com.educacionit.ms.mvc.pet.Models;
-
+using mercadopago;
 
 
 namespace com.educacionit.ms.mvc.pet.Controllers
@@ -91,6 +92,19 @@ namespace com.educacionit.ms.mvc.pet.Controllers
             Response.Cookies.Add(cookie);
 
             return RedirectToAction("GiveInAdoption");
+        }
+
+        public ActionResult Donations()
+        {
+            MP mp = new MP("1650106280046648", "qNVMhDcEMErssziidNDJd002xWCzLtrw");
+            String accessToken = mp.getAccessToken();
+
+            Hashtable preference = mp.createPreference("{\"items\":[{\"title\":\"Donation Pet's\",\"quantity\":1,\"currency_id\":\"ARS\",\"unit_price\":100}]}");
+
+            ViewBag.accessToken = accessToken;
+            ViewBag.preference = preference;
+
+            return View();
         }
     }
 }
